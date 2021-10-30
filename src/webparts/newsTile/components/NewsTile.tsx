@@ -10,13 +10,15 @@ import { INews } from './INews';
 import NewsCard from './NewsCard';
 
 interface INewsTitleState{
-  newsList: INews[]
+  newsList: INews[];
+  filters:string[]
 }
 export default class NewsTile extends React.Component<INewsTileProps, INewsTitleState> {
   constructor(props:INewsTileProps){
   super(props);
       this.state={
-      newsList:[] as INews[]
+      newsList:[] as INews[],
+      filters :[]
       }
 
   } 
@@ -26,6 +28,7 @@ public async componentDidMount(){
   //  const filterStr=this.props.filterField;
   let filterStr='';
   const filterValuesArr=this.props.filterValues &&this.props.filterValues.split(',');
+  this.setState({...this.state,filters:filterValuesArr});
   if(filterValuesArr && filterValuesArr.length>0 && filterValuesArr.filter(a=>a!='All'))
   {
    filterStr=filterValuesArr.reduce((rdc,item,i)=>( rdc+ (i==0?`${this.props.filterField} eq '${item}' `: ` or ${this.props.filterField} eq '${item}' `)),'') ;
@@ -52,7 +55,12 @@ public async componentDidMount(){
   public render() {
     return (
       <div className={ styles.newsTile }>
+        <div className={styles.filters}>{this.state.filters && this.state.filters.length>0 && this.state.filters.map((it,ind)=>{
+             return(<span className={styles.item} key={ind} >{it}</span>)
+          })}
+          </div>
         <div className={styles.container}>
+          
          {this.state.newsList && this.state.newsList.length>0 && this.state.newsList.map((a,index)=>{
            return(<NewsCard  key={index} {...a}/>)
 
