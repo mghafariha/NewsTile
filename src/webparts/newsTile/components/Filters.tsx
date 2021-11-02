@@ -8,13 +8,20 @@ import { UrlFieldFormatType } from '@pnp/sp/fields/types';
 
 
 const Filters=(props)=>{
+   ;
     const [filterValues,setFilterValues]=React.useState([]);
     React.useEffect(() => {
        setFilterValues(props.filters);
+      
       }, [props.filters]); 
-    
-      return(<div> {filterValues && filterValues.length>0 &&filterValues.map((it,ind)=>{
-           return(<button className={it.active?styles.selectedItem: styles.item} key={ind} onClick={(it)=>props.changedFilterNews({it})}>{it}</button>)
+    const  clickButton=(it)=>{
+        
+        props.changedFilterNews({...it});
+    }
+      return(<div className={styles.filters}>
+          <div className={styles.displayName}>{props.displayName}</div>
+           {filterValues && filterValues.length>0 &&filterValues.map((it,ind)=>{
+           return(<button className={it.active?styles.selectedItem:styles.item} key={ind} onClick={()=>clickButton(it)}>{it.name}</button>)
           })}
         </div> )
 

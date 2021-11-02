@@ -12,11 +12,11 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 const NewsCard=(props)=>{
     const formattedDate = (date) => (date.getUTCDate() + " " + monthNames[date.getMonth()] + ', ' + date.getUTCFullYear());
     console.log('dtr',props);
-      return(<div  className={styles.newsCard} >
-              <div className={styles.image} style={{backgroundImage:`url(${props.bannerImageUrl})`}}></div>
+      return(<div  className={styles.newsCard}  >
+              <div  className={styles.image} style={{backgroundImage:`url(${props.bannerImageUrl})`}} ></div>
               <div className={styles.tileText}>
                     <div className={styles.tileHeader} >{props.topicHeader}</div>
-                    <div className={styles.tileBody}> {props.title}</div>
+                    <div className={styles.tileBody}><a href={props.url} target="_blank" data-interception="off" style={{ color: 'inherit', textDecoration: 'none' }}>{props.title}</a> </div>
                     <div className={styles.tileDate}>{formattedDate(new Date(props.created))}</div>
               </div>
 
