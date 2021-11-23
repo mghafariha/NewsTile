@@ -40,9 +40,16 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     background-color:#f9f4f4;
     color: #080808;
-    margin:10px;
-   height: 300px;
+    margin:5px;
+    // height: 300px;
      overflow: auto;
+     @media only screen and (max-width: 640px) {
+       min-width:220;
+      width:100%;
+      display:flex;
+      flex-direction: column;
+      
+    }
     .newsCard {
       background-color: white;
       max-width: 100%;
@@ -54,6 +61,19 @@
       left: 0;
       border-radius: 10px;
       margin:10px 10px 10px 5px;
+      display:flex;
+      flex-direction: column;
+      @media only screen and (max-width: 640px) {
+        min-width:200;
+      width:calc(100%-15px);
+        display:flex;
+        flex-direction: row;
+        height:100px!important;
+        border-radius: 0px!important;
+      }
+      // 
+      
+      //
       .image {
         background-size: cover;
         background-repeat: no-repeat;
@@ -67,6 +87,14 @@
         left: 0;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        @media only screen and (max-width: 640px) {
+        // width:40%!important;
+          height:100%!important;
+          border-top-left-radius: 0px!important;
+         
+          border-top-right-radius:0px!important;
+          flex:2;
+        }
     }
     .tileText {
  
@@ -80,7 +108,11 @@
       display: flex;
       flex-direction: column;
      min-height: 30%;
-  
+     @media only screen and (max-width: 640px) {
+      // width:40%!important;
+        
+        flex:4;
+      }
       .tileHeader
     {
       font-size :12px;
@@ -111,9 +143,7 @@
 
   }
  
-  
 
-
-  
   
 }
+
