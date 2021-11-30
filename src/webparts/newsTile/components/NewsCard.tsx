@@ -17,7 +17,7 @@ const NewsCard=(props)=>{
               <div className={styles.tileText}>
                     <div className={styles.tileHeader} >{props.topicHeader}</div>
                     <div className={styles.tileBody}><a href={props.url} target="_blank" data-interception="off" style={{ color: 'inherit', textDecoration: 'none' }}>{props.title}</a> </div>
-                    <div className={styles.tileDate}>{formattedDate(new Date(props.created))}</div>
+                    <div className={styles.tileDate}>{formattedDate(new Date(props.issueDate))}</div>
               </div>
 
 

@@ -54,13 +54,13 @@ this.setState({...this.state,fieldDisplayName:field.Title});
   }
   
 
-  let selectedFields=`Id,AuthorId,Author/Title,BannerImageUrl ,Created,Title,FirstPublishedDate,OData__TopicHeader,FileLeafRef`;
+  let selectedFields=`Id,AuthorId,Author/Title,BannerImageUrl,IssueDate,Created,Title,FirstPublishedDate,OData__TopicHeader,FileLeafRef`;
   selectedFields=this.props.filterField?selectedFields + `, ${this.props.filterField}`:selectedFields;
  
   let newsItems = await web.lists.getByTitle('Site Pages').items.filter(filterStr).select(selectedFields).expand(`Author`).orderBy("Id", false).top(this.props.numberOfDisplayNews).get();
    
-  newsItems = newsItems.sort((a, b) => (a.Id > b.Id ? -1 : 1));
-    const news = newsItems.map((a) => ({ title: a.Title, bannerImageUrl:a.BannerImageUrl.Url.indexOf('/thumbnails/')==-1? `${a.BannerImageUrl.Url}&resolution=6`:`${a['BannerImageUrl']['Url'].split("file=")[0].substring(0,a['BannerImageUrl']['Url'].split("file=")[0].indexOf('/thumbnails/'))+ "/" +a['BannerImageUrl']['Url'].split("file=")[1]}`, authorTitle: a.Author.Title, created: a.FirstPublishedDate, sliderDisplayOrder: a.SliderDisplayOrder, topicHeader: a.OData__TopicHeader, url: `${this.props.newsSiteUrl}/SitePages/${a.FileLeafRef}` })) as INews[];
+  newsItems = newsItems.sort((a, b) => (a.IssueDate > b.IssueDate ? -1 : 1));
+    const news = newsItems.map((a) => ({ title: a.Title,issueDate:a.IssueDate, bannerImageUrl:a.BannerImageUrl.Url.indexOf('/thumbnails/')==-1? `${a.BannerImageUrl.Url}&resolution=6`:`${a['BannerImageUrl']['Url'].split("file=")[0].substring(0,a['BannerImageUrl']['Url'].split("file=")[0].indexOf('/thumbnails/'))+ "/" +a['BannerImageUrl']['Url'].split("file=")[1]}`, authorTitle: a.Author.Title, created: a.FirstPublishedDate, sliderDisplayOrder: a.SliderDisplayOrder, topicHeader: a.OData__TopicHeader, url: `${this.props.newsSiteUrl}/SitePages/${a.FileLeafRef}` })) as INews[];
    console.log('news',news);
     this.setState({...this.state,newsList:news});
 }
@@ -81,14 +81,14 @@ else {
   }
 }
 
-  let selectedFields=`Id,AuthorId,Author/Title,BannerImageUrl ,Created,Title,FirstPublishedDate,OData__TopicHeader,FileLeafRef`;
+  let selectedFields=`Id,AuthorId,Author/Title,BannerImageUrl,IssueDate,Created,Title,FirstPublishedDate,OData__TopicHeader,FileLeafRef`;
   selectedFields=this.props.filterField?selectedFields + `, ${this.props.filterField}`:selectedFields;
   const web=Web(`${this.props.newsSiteUrl}`);
   const r= await web();
   let newsItems = await web.lists.getByTitle('Site Pages').items.filter(filterStr).select(selectedFields).expand(`Author`).orderBy("Id", false).top(this.props.numberOfDisplayNews).get();
    
-    newsItems = newsItems.sort((a, b) => (a.Id > b.Id ? -1 : 1));
-    const news = newsItems.map((a) => ({ title: a.Title, bannerImageUrl:a.BannerImageUrl.Url.indexOf('/thumbnails/')==-1? `${a.BannerImageUrl.Url}&resolution=6`:`${a['BannerImageUrl']['Url'].split("file=")[0].substring(0,a['BannerImageUrl']['Url'].split("file=")[0].indexOf('/thumbnails/'))+ "/" +a['BannerImageUrl']['Url'].split("file=")[1]}`, authorTitle: a.Author.Title, created: a.FirstPublishedDate, sliderDisplayOrder: a.SliderDisplayOrder, topicHeader: a.OData__TopicHeader, url: `${this.props.newsSiteUrl}/SitePages/${a.FileLeafRef}` })) as INews[];
+    newsItems = newsItems.sort((a, b) => (a.IssueDate > b.IssueDate ? -1 : 1));
+    const news = newsItems.map((a) => ({ title: a.Title,issueDate:a.IssueDate, bannerImageUrl:a.BannerImageUrl.Url.indexOf('/thumbnails/')==-1? `${a.BannerImageUrl.Url}&resolution=6`:`${a['BannerImageUrl']['Url'].split("file=")[0].substring(0,a['BannerImageUrl']['Url'].split("file=")[0].indexOf('/thumbnails/'))+ "/" +a['BannerImageUrl']['Url'].split("file=")[1]}`, authorTitle: a.Author.Title, created: a.FirstPublishedDate, sliderDisplayOrder: a.SliderDisplayOrder, topicHeader: a.OData__TopicHeader, url: `${this.props.newsSiteUrl}/SitePages/${a.FileLeafRef}` })) as INews[];
    console.log('news',news);
     this.setState({...this.state,newsList:news});
   
